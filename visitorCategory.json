@@ -1,0 +1,19 @@
+{
+    "VisitorCategory": {
+        "Category": [
+            {
+                "name": "vip"     
+            },
+            {       
+                "name": "Vendor"     
+            },
+            {
+                "name": "Partner"     
+            },
+            {
+                "name": "Family"     
+            }
+
+        ]
+    }
+}
