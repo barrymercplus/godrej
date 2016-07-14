@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var _ = require('lodash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,9 +28,9 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-app.get('/visitorCategory',function(req,res){
+app.get('/employeeRead',function(req,res){
 
-fs.readFile('./visitorCategory.json',function(err,data){
+fs.readFile('./Employee.json',function(err,data){
       console.log('***************', err, data);
       data = JSON.parse(data);
       console.log('*********************',data);
@@ -37,6 +38,56 @@ fs.readFile('./visitorCategory.json',function(err,data){
   
   });
 });
+
+app.get('/employeeCreate/:dat',function(req,res){
+	res.writeHead(200,{'Content-Type':'text/html'});
+    console.log("Going to write into existing file");
+  fs.readFile('./Employee.json', function (err, data) {
+	  var dat = JSON.parse(dat);
+      if (err) {
+         return console.error(err);
+      } 
+     data = JSON.parse(data);
+	  data.Employee.push(dat);
+	  console.log(data);
+	  
+  fs.writeFile('./Employee.json',JSON.stringify(data) ,  function(err) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(data);
+   //console.log("Let's read newly written data");
+     });
+  }); 
+   res.end('successful');
+});
+
+app.post('/visitorData',function(req,res){
+	res.writeHead(200,{'Content-Type':'text/html'});
+    console.log("Going to write into existing file");
+  fs.readFile('./Employee.json', function (err, data) {
+	  var dat = JSON.parse(req.body);
+      if (err) {
+         return console.error(err);
+      } 
+     data = JSON.parse(data);
+	 for(i=0;i<data.length;i++){
+		 if(data[i].id == dat.id)
+			 data[i].mode = dat.mode;
+		     data[i].vehicleNo = dat.vehicleNo;
+	 }
+	 console.log(data);	  
+	  
+  fs.writeFile('./Employee.json',JSON.stringify(data) ,  function(err) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(data);
+
+     });
+  }); 
+   res.end('successful');
+})
 
 
 // catch 404 and forward to error handler
