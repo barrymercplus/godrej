@@ -40,7 +40,7 @@ fs.readFile('./Employee.json',function(err,data){
 });
 
 app.post('/employeeCreate',function(req,res){
-	res.writeHead(200,{'Content-Type':'text/html'});
+	res.writeHead(200,{'Content-Type':'application/json'});
     console.log("Going to write into existing file");
   fs.readFile('./Employee.json', function (err, data) {
 	  //var dat = JSON.parse(req.body);
@@ -56,7 +56,7 @@ app.post('/employeeCreate',function(req,res){
        return console.error(err);
    }
    console.log(data);
-   res.end('successful');
+   res.end(JSON.stringify({"result":"successful"}));
    //console.log("Let's read newly written data");
      });
   }); 
