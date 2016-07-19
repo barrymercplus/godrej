@@ -39,11 +39,11 @@ fs.readFile('./Employee.json',function(err,data){
   });
 });
 
-app.get('/employeeCreate/:dat',function(req,res){
+app.post('/employeeCreate',function(req,res){
 	res.writeHead(200,{'Content-Type':'text/html'});
     console.log("Going to write into existing file");
   fs.readFile('./Employee.json', function (err, data) {
-	  var dat = JSON.parse(dat);
+	  var dat = JSON.parse(req.body);
       if (err) {
          return console.error(err);
       } 
