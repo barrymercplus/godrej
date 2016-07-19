@@ -50,6 +50,7 @@ app.post('/employeeCreate',function(req,res){
      data = JSON.parse(data);
 	  data.push(req.body);
 	  console.log(data);
+	  fs.unlink('./Employee.json', function(err) {console.log("success")});
 	  
   fs.writeFile('./Employee.json',JSON.stringify(data) ,  function(err) {
    if (err) {
