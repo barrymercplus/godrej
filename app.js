@@ -43,12 +43,12 @@ app.post('/employeeCreate',function(req,res){
 	res.writeHead(200,{'Content-Type':'text/html'});
     console.log("Going to write into existing file");
   fs.readFile('./Employee.json', function (err, data) {
-	  var dat = JSON.parse(req.body);
+	  //var dat = JSON.parse(req.body);
       if (err) {
          return console.error(err);
       } 
      data = JSON.parse(data);
-	  data.Employee.push(dat);
+	  data.push(req.body);
 	  console.log(data);
 	  
   fs.writeFile('./Employee.json',JSON.stringify(data) ,  function(err) {
@@ -56,10 +56,11 @@ app.post('/employeeCreate',function(req,res){
        return console.error(err);
    }
    console.log(data);
+   res.end('successful');
    //console.log("Let's read newly written data");
      });
   }); 
-   res.end('successful');
+ 
 });
 
 app.post('/visitorData',function(req,res){
